@@ -165,7 +165,7 @@
   <!-- HOW IT WORKS -->
   <section id="how" class="section section-alt">
     <h2>How RingCrypt works</h2>
-    <p class="lead">
+    <p class="lead" style="text-align:center;margin:0 auto 34px">
       FHE lives in the polynomial ring <code>R = Z<sub>q</sub>[x]/(x<sup>N</sup>+1)</code>.
       Every operation is a polynomial multiplication, accelerated from O(N²) to
       <strong>O(N log N)</strong> by the Number-Theoretic Transform.
@@ -267,7 +267,7 @@
   <!-- DOCS -->
   <section id="docs" class="section section-alt">
     <h2>Documentation &amp; Resources</h2>
-    <p class="lead">Everything you need to understand, build, and contribute to RingCrypt.</p>
+    <p class="lead" style="text-align:center;margin:0 auto 34px">Everything you need to understand, build, and contribute to RingCrypt.</p>
     <div class="grid3">
       <div class="card">
         <h3>Math Deep Dive</h3>
