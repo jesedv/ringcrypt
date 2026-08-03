@@ -18,7 +18,7 @@ export function loadWasm() {
     let base = document.baseURI;
     if (!base.endsWith('/')) base = new URL('./', base).href;
     const url = new URL('pkg/ringcrypt_wasm.js', base).href;
-    instancePromise = import(url).catch((e) => {
+      instancePromise = import(/* @vite-ignore */ url).catch((e) => {
       instancePromise = null; // allow retry on transient failure
       throw e;
     });
