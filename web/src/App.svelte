@@ -100,8 +100,8 @@
 
   <!-- WHY FHE -->
   <section id="why" class="section section-alt">
-    <h2>Why homomorphic encryption matters</h2>
-    <p class="lead">
+    <h2 style="text-align:center">Why homomorphic encryption matters</h2>
+    <p class="lead" style="text-align:center">
       Encrypt first, compute later. FHE is the cryptographic primitive that lets you
       <strong>run arbitrary computations on ciphertext</strong> — the result is encrypted,
       and only the key holder can decrypt it.
