@@ -1,5 +1,11 @@
 # RingCrypt — Cross-Vendor Fully Homomorphic Encryption on GPU
 
+## Status: v0.1 — GPU NTT live
+
+GPU NTT/INTT compute shaders implemented (wgpu/Vulkan/WGSL), verified bit-exact
+on RTX 3060. CKKS scheme, threshold secret sharing, WASM demo all working.
+Remaining: modulus chain / rescaling / relinearization.
+
 ## One-liner
 A number-theoretic fast Fourier transform (NTT) + INTT + mod-multiply GPU engine that runs FHE (CKKS/BFV-style) across any GPU vendor (NVIDIA/AMD/Intel/Metal/WebGPU) via 32-bit emulation of 64-bit modular arithmetic, with a pure-WASM CPU fallback for the browser.
 

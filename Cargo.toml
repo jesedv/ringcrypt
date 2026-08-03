@@ -16,7 +16,7 @@ edition = "2021"
 license = "MIT"
 authors = ["ringcrypt contributors"]
 readme = "README.md"
-repository = "https://github.com/ringcrypt/ringcrypt"
+repository = "https://github.com/jesedv/ringcrypt"
 homepage = "https://ringcrypt.jesed.dev/"
 description = "Cross-vendor fully homomorphic encryption on GPU (NTT + NTT/INTT core, RLWE negacyclic multiply, threshold secret-sharing)."
 

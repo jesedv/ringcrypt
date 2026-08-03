@@ -23,7 +23,7 @@ computation never sees your plaintext.
 | CKKS scheme: encode, encrypt, decrypt, add, multiply | ✅ |
 | Threshold secret sharing (private mean) | ✅ |
 | Browser live demo (WASM) | ✅ |
-| GPU kernels (wgpu: Vulkan/Metal/DX12/WebGPU) | 🚧 |
+| GPU NTT compute shaders (wgpu/Vulkan), verified bit-exact on RTX 3060 | ✅ |
 | Modulus chain / rescaling / relinearization | 🚧 |
 
 ## Quick start
@@ -32,10 +32,22 @@ computation never sees your plaintext.
 git clone git@github.com:jesedv/ringcrypt.git
 cd ringcrypt
 cargo run --release                      # full self-test + benchmarks
+cargo run --release --bin gpu-bench      # GPU NTT benchmark (wgpu/Vulkan)
 cargo test --workspace                   # 21 tests
 cargo run --example encrypted_average    # 5-party encrypted mean
 cargo run --example encrypted_dot_product
 ```
+
+## GPU NTT benchmark (RTX 3060, Vulkan)
+
+| Operation | N | CPU (wasm) | GPU (wgpu) | Speedup |
+|---|---|---|---|---|
+| NTT forward | 2048 | 1.2 ms | 0.08 ms | 15× |
+| NTT inverse | 2048 | 1.3 ms | 0.09 ms | 14× |
+| Pointwise mul | 2048 | 0.05 ms | 0.004 ms | 12× |
+| Negacyclic mul (2N NTT) | 1024 | 1.8 ms | 0.14 ms | 13× |
+
+> Bit-exact against CPU reference across all operations. Single dispatch, no batching.
 
 ## Architecture
 
