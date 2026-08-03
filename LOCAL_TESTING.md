@@ -13,9 +13,11 @@ cargo run --release
 # 3. GPU NTT benchmark (requires GPU + Vulkan)
 cargo run --release --bin gpu-bench
 
-# 4. Examples
+# 4. Examples (full FHE workflows)
+cargo run --release --example encrypted_workflow
 cargo run --release --example encrypted_average
 cargo run --release --example encrypted_dot_product
+cargo run --release --example encrypted_analytics
 
 # 5. Web demo (localhost)
 scripts/build-wasm.sh

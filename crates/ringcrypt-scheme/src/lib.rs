@@ -86,6 +86,28 @@ impl CkksScheme {
         eval::decrypt(ct, self.keys().sk())
     }
 
+    pub fn encrypt_with_pk(
+        &self,
+        pk: &ciphertext::PublicKey,
+        message: &[f64],
+        seed: u64,
+    ) -> Ciphertext {
+        let pt = self.encode(message);
+        encrypt::encrypt(pk, &pt, self.scale, seed)
+    }
+
+    pub fn decrypt_with_sk(&self, ct: &Ciphertext, sk: &ciphertext::SecretKey) -> Vec<u64> {
+        eval::decrypt(ct, sk)
+    }
+
+    pub fn public_key(&self) -> &ciphertext::PublicKey {
+        self.keys().pk()
+    }
+
+    pub fn secret_key(&self) -> &ciphertext::SecretKey {
+        self.keys().sk()
+    }
+
     pub fn info(&self) -> SchemeInfo {
         SchemeInfo {
             n: self.n,
