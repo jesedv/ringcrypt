@@ -61,6 +61,7 @@
   <nav class="nav-links">
     <a href="#why">Why FHE</a>
     <a href="#advantages">Advantages</a>
+    <a href="#cli">CLI</a>
     <a href="#how">How It Works</a>
     <a href="#demo">Live Demo</a>
     <a href={DOCS}>Docs</a>
@@ -191,6 +192,11 @@
         <p>NTT/INTT and pointwise modular multiplication run as WGSL compute shaders via wgpu — Vulkan, Metal, DX12, WebGPU. 13–15× speedup over WASM CPU on RTX 3060, bit-exact across all backends.</p>
         <code class="mini">cargo run --release --bin gpu-bench</code>
       </div>
+      <div class="card">
+        <h3>CLI Toolchain</h3>
+        <p>Usable product from day one. <code>keygen</code> → <code>encrypt</code> → <code>compute</code> → <code>decrypt</code>. No library integration, no Rust required. Encrypt JSON files and compute homomorphically from any terminal.</p>
+        <code class="mini">ringcrypt keygen --out keys/</code>
+      </div>
     </div>
     <p class="math-note">
       <strong>Correctness contract:</strong> every kernel is cross-checked against a reference implementation —
@@ -198,8 +204,50 @@
     </p>
   </section>
 
+  <!-- USE IT NOW -->
+  <section id="cli" class="section">
+    <h2>Use It Now — Full CLI Toolchain</h2>
+    <p class="lead">RingCrypt is a <strong>usable product</strong>, not just a library. Generate keys, encrypt data, run computations on ciphertext, and decrypt — all from the command line.</p>
+    <div class="grid3">
+      <div class="card">
+        <h3>1. Generate Keys</h3>
+        <code class="mini">ringcrypt keygen --out keys/</code>
+        <p>Generates <code>keys/pub.json</code> and <code>keys/sec.json</code> — the public and secret key pair. Keep <code>sec.json</code> safe.</p>
+      </div>
+      <div class="card">
+        <h3>2. Encrypt Data</h3>
+        <code class="mini">ringcrypt encrypt --pub keys/pub.json --in data.json --out ct.json</code>
+        <p>Accepts JSON arrays or plaintext (one number per line). Produces RLWE ciphertext.</p>
+      </div>
+      <div class="card">
+        <h3>3. Compute &amp; Decrypt</h3>
+        <code class="mini">ringcrypt decrypt --sec keys/sec.json --in ct.json</code>
+        <p>Homomorphic add/mul/sum via <code>ringcrypt compute</code>. Only the key holder decrypts.</p>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px">Full CLI Reference</h3>
+    <div style="overflow-x:auto; margin-top:12px">
+      <table style="width:100%; border-collapse:collapse; font-size:.9rem">
+        <thead><tr style="border-bottom:1px solid var(--line)">
+          <th style="text-align:left; padding:8px">Command</th>
+          <th style="text-align:left; padding:8px">Description</th>
+        </tr></thead>
+        <tbody>
+          <tr style="border-bottom:1px solid #1a2235"><td style="padding:8px"><code>ringcrypt</code></td><td style="padding:8px; color:var(--muted)">Run self-tests + benchmarks</td></tr>
+          <tr style="border-bottom:1px solid #1a2235"><td style="padding:8px"><code>ringcrypt keygen --out &#60;dir&#62;</code></td><td style="padding:8px; color:var(--muted)">Generate public + secret key</td></tr>
+          <tr style="border-bottom:1px solid #1a2235"><td style="padding:8px"><code>ringcrypt encrypt --pub &#60;pk&#62; --in &#60;data&#62; --out &#60;ct&#62;</code></td><td style="padding:8px; color:var(--muted)">Encrypt data with public key</td></tr>
+          <tr style="border-bottom:1px solid #1a2235"><td style="padding:8px"><code>ringcrypt compute add &#60;a&#62; &#60;b&#62; --out &#60;r&#62;</code></td><td style="padding:8px; color:var(--muted)">Homomorphic addition</td></tr>
+          <tr style="border-bottom:1px solid #1a2235"><td style="padding:8px"><code>ringcrypt compute mul &#60;a&#62; &#60;b&#62; --out &#60;r&#62;</code></td><td style="padding:8px; color:var(--muted)">Homomorphic multiplication</td></tr>
+          <tr style="border-bottom:1px solid #1a2235"><td style="padding:8px"><code>ringcrypt compute sum &#60;a&#62; &#60;b&#62; [c...] --out &#60;r&#62;</code></td><td style="padding:8px; color:var(--muted)">Homomorphic sum of multiple ciphertexts</td></tr>
+          <tr><td style="padding:8px"><code>ringcrypt decrypt --sec &#60;sk&#62; --in &#60;ct&#62;</code></td><td style="padding:8px; color:var(--muted)">Decrypt ciphertext with secret key</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- LIVE DEMO -->
-  <section id="demo" class="section">
+  <section id="demo" class="section section-alt">
     <h2>Live demo — runs right here in your browser</h2>
     <p class="lead">The Rust engine compiles to WebAssembly. No server round-trips, no library install — just the real engine.</p>
     <div class="demo-grid">
@@ -305,7 +353,7 @@
       </div>
       <div class="card">
         <h3>CLI Binary</h3>
-        <p>Prebuilt native binaries for Linux, macOS, and Windows. Self-test, benchmark, and verify without a Rust toolchain.</p>
+        <p>Usable CLI — no Rust knowledge needed. <code>keygen</code>, <code>encrypt</code>, <code>compute</code>, <code>decrypt</code>. Prebuilt for Linux, macOS, Windows.</p>
         <a class="btn btn-ghost" href={`${REPO}/releases`} target="_blank" rel="noopener">Download</a>
       </div>
       <div class="card">
@@ -357,7 +405,7 @@
       <span>Pre-audit — not for production secrets until v1.0</span>
     </div>
   </div>
-  <p class="legal">&copy; 2026 RingCrypt contributors. MIT License. <a href="https://jesed.dev/" style="color:var(--muted);text-decoration:none;">by jesed</a></p>
+  <p class="legal">&copy; 2026 RingCrypt contributors. MIT License. <a href="https://jesed.dev/" class="jesed-link">by jesed</a></p>
 </footer>
 
 <style>
@@ -441,4 +489,6 @@
   .footer-col strong { color: var(--text); font-size: .95rem; }
   .footer-col a { color: var(--accent); text-decoration: none; }
   .legal { font-size: .8rem; margin-top: 12px; }
+  .jesed-link { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .jesed-link:hover { text-decoration: underline; }
 </style>

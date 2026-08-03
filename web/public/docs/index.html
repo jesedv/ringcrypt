@@ -74,6 +74,7 @@
     <div class="toc">
       <h3>Table of Contents</h3>
       <ol>
+        <li><a href="#cli-quickstart">CLI Quick Start</a></li>
         <li><a href="#ring">The ring</a></li>
         <li><a href="#params">Parameters</a></li>
         <li><a href="#ntt">NTT / INTT</a></li>
@@ -85,6 +86,26 @@
         <li><a href="#noise">Error / noise budget (roadmap)</a></li>
       </ol>
     </div>
+
+    <h2 id="cli-quickstart">CLI Quick Start</h2>
+    <p>
+      RingCrypt is a <strong>usable CLI toolchain</strong>. Download a prebuilt binary from
+      <a href="https://github.com/jesedv/ringcrypt/releases" target="_blank" rel="noopener">releases</a>
+      or <code>cargo install ringcrypt</code>, then:
+    </p>
+    <pre><code># Generate a key pair
+ringcrypt keygen --out keys/
+
+# Encrypt data (JSON array or one-number-per-line)
+echo '[120, 95, 132, 88, 110]' > data.json
+ringcrypt encrypt --pub keys/pub.json --in data.json --out ct.json
+
+# Decrypt
+ringcrypt decrypt --sec keys/sec.json --in ct.json
+
+# Compute on ciphertext
+ringcrypt compute add ct_a.json ct_b.json --out sum.json
+ringcrypt compute mul ct_a.json ct_b.json --out prod.json</code></pre>
 
     <h2 id="ring">1. The ring</h2>
     <p>

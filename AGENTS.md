@@ -9,7 +9,7 @@ pass across all backends.
 Remaining: modulus chain / rescaling / relinearization.
 
 ## One-liner
-A number-theoretic fast Fourier transform (NTT) + INTT + mod-multiply GPU engine that runs FHE (CKKS/BFV-style) across any GPU vendor (NVIDIA/AMD/Intel/Metal/WebGPU) via 32-bit emulation of 64-bit modular arithmetic, with a pure-WASM CPU fallback for the browser.
+A usable FHE CLI toolchain (keygen, encrypt, compute, decrypt) backed by a number-theoretic fast Fourier transform (NTT) + INTT + mod-multiply GPU engine running CKKS across any vendor (NVIDIA/AMD/Intel/Metal/WebGPU) via 32-bit emulation of 64-bit modular arithmetic, with pure-WASM CPU fallback for the browser.
 
 ## The Hard Math
 - **CKKS / BFV / BGV** — leveled HE schemes; all build on polynomial ring `R = Z_q[x]/(x^N+1)`.
@@ -31,16 +31,28 @@ Encrypted analytics and private ML: a hospital / bank / compliance team can comp
 ```
 ringcrypt/
 ├── Cargo.toml
+├── src/
+│   ├── main.rs            # CLI toolchain: keygen, encrypt, compute, decrypt
+│   └── gpu_bench.rs       # GPU NTT benchmark binary
 ├── crates/
 │   ├── ringcrypt-ntt/      # forward NTT, INTT, mod-mul, 32-bit emulated 64-bit
-│   ├── ringcrypt-scheme/   # CKKS encode/encode, rescale, re-linearize (fallback + GPU)
-│   ├── ringcrypt-linalg/   # ciphertext vector/matrix ops, ML inference building blocks
+│   ├── ringcrypt-scheme/   # CKKS encode/decode, encrypt/decrypt, homomorphic ops
 │   ├── ringcrypt-runtime/  # device/command/pipeline orchestration, CPU fallback
-│   └── ringcrypt-wasm/     # browser bridge + demo
-├── examples/            # encrypted average, encrypted logistic regression
-├── ui/                   # demo dashboard
+│   ├── ringcrypt-ss/       # threshold secret sharing
+│   └── ringcrypt-wasm/     # browser bridge
+├── examples/            # encrypted workflow, average, dot product
+├── web/                 # Svelte static site + live WASM demo
 └── docs/
     └── math.md
+```
+
+### CLI architecture
+```
+ringcrypt (no args)  →  self-test + benchmark
+ringcrypt keygen     →  keys/pub.json + keys/sec.json
+ringcrypt encrypt    →  data.json + pub.json → ct.json (RLWE ciphertext)
+ringcrypt compute    →  add | mul | sum over .json ciphertexts
+ringcrypt decrypt    →  ct.json + sec.json → plaintext output
 ```
 
 ## Build & Test

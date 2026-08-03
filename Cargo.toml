@@ -18,7 +18,7 @@ authors = ["ringcrypt contributors"]
 readme = "README.md"
 repository = "https://github.com/jesedv/ringcrypt"
 homepage = "https://ringcrypt.jesed.dev/"
-description = "Cross-vendor fully homomorphic encryption on GPU (NTT + NTT/INTT core, RLWE negacyclic multiply, threshold secret-sharing)."
+description = "Usable FHE CLI — keygen, encrypt, compute, decrypt. Runs on any GPU."
 
 [workspace.dependencies]
 ringcrypt-ntt = { path = "crates/ringcrypt-ntt" }
