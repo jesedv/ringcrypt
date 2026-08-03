@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-brightgreen.svg)
 [![Live demo](https://img.shields.io/badge/demo-live-5b8cff)](https://ringcrypt.jesed.dev)
-[![Release](https://img.shields.io/badge/release-v0.1.0-5b8cff)](https://github.com/jesedv/ringcrypt/releases/tag/v0.1.0)
+[![Release](https://img.shields.io/badge/v0.1.1-5b8cff)](https://github.com/jesedv/ringcrypt/releases/latest)
 
 > ⚠️ **Pre-audit (v0.1).** Verified math, pending third-party audit before v1.0.
 
