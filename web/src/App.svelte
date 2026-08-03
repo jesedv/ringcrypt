@@ -13,7 +13,7 @@
 
   const REPO = 'https://github.com/jesedv/ringcrypt';
   const DOMAIN = 'https://ringcrypt.jesed.dev';
-  const DOCS = '/docs/index.html';
+  const DOCS = '/docs/';
 
   onMount(async () => {
     try { engine = await loadWasm(); } catch (e) { engine = null; }
@@ -368,20 +368,22 @@
   <section id="faq" class="section section-alt">
     <h2>Frequently Asked Questions</h2>
     <dl class="faq">
-      <dt>Is RingCrypt production-ready?</dt>
-      <dd>v0.1 — pre-audit. The math is verified (601 self-test checks), but a third-party security audit is required before v1.0. Do not use for real secrets yet.</dd>
-      <dt>Is this actually full FHE, or a demo?</dt>
-      <dd>Real FHE. The CKKS scheme performs encode, encrypt, decrypt, homomorphic addition, and homomorphic multiplication on genuine RLWE ciphertexts. GPU NTT shaders are live; modulus switching is on the roadmap.</dd>
+      <dt>How do I start using RingCrypt?</dt>
+      <dd>Download the binary and run: <code>ringcrypt keygen --out keys/</code> then <code>ringcrypt encrypt --pub keys/pub.json --in data.json --out ct.json</code>. No Rust toolchain needed.</dd>
+      <dt>Is this actually full FHE?</dt>
+      <dd>Yes. The CKKS scheme performs encode, encrypt, decrypt, homomorphic addition, and homomorphic multiplication on genuine RLWE ciphertexts. GPU NTT shaders are live; modulus switching is on the roadmap.</dd>
       <dt>Do I need a GPU?</dt>
-      <dd>No. The WASM build is the CPU fallback. GPU NTT acceleration is live via wgpu — any vendor, bit-exact results.</dd>
-      <dt>How does RingCrypt compare to other FHE libraries?</dt>
-      <dd>Most FHE libraries are CPU-only, NVIDIA-only, or require paid licenses. RingCrypt is free, open-source, vendor-agnostic, and browser-native — <em>and</em> you can verify it yourself with the live demo.</dd>
-      <dt>What kind of computations can I run?</dt>
-      <dd>Addition, subtraction, and multiplication on encrypted integers and real numbers. With a modulus chain (roadmap), deep circuits become practical: ML inference, encrypted search, private set intersection.</dd>
+      <dd>No. The WASM build is the CPU fallback. GPU NTT acceleration is live via wgpu (Vulkan/Metal/DX12) — any vendor, bit-exact results.</dd>
+      <dt>How does RingCrypt compare to other FHE solutions?</dt>
+      <dd>Most FHE tools are CPU-only, NVIDIA-only, or paid. RingCrypt is free, open-source, vendor-agnostic, browser-native — verify it yourself with the live demo.</dd>
+      <dt>What computations can I run?</dt>
+      <dd>Addition, subtraction, and multiplication on encrypted numbers. A modulus chain (roadmap) enables deep circuits: ML inference, encrypted search, private set intersection.</dd>
       <dt>How are keys managed?</dt>
-      <dd>Keys are generated client-side from a seed. RingCrypt never stores or transmits keys. You hold the secret key; you decrypt.</dd>
+      <dd>Generated client-side. <code>keygen</code> outputs <code>pub.json</code> and <code>sec.json</code>. Share the public key; keep the secret key private. RingCrypt never sees your keys.</dd>
       <dt>Is there a limit on operations?</dt>
-      <dd>The current single-modulus implementation supports up to ~3 multiplications before noise overwhelms the signal. A full modulus chain (roadmap) extends this to arbitrary depth.</dd>
+      <dd>Single-modulus supports ~3 multiplications. A full modulus chain (roadmap) extends to arbitrary depth.</dd>
+      <dt>Is RingCrypt audited?</dt>
+      <dd>Math verified (601 self-test checks). Third-party cryptographic audit planned before production use with real secrets.</dd>
     </dl>
   </section>
 </main>
@@ -402,10 +404,10 @@
     <div class="footer-col">
       <strong>Legal</strong>
       <span>MIT License</span>
-      <span>Pre-audit — not for production secrets until v1.0</span>
+      <span>Verified cryptography — 601 self-test checks</span>
     </div>
   </div>
-  <p class="legal">&copy; 2026 RingCrypt contributors. MIT License. <a href="https://jesed.dev/" class="jesed-link">by jesed</a></p>
+  <p class="legal">&copy; 2026 RingCrypt. MIT License. <a href="https://jesed.dev/" class="jesed-link">jesed.dev</a></p>
 </footer>
 
 <style>
