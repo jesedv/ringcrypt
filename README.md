@@ -29,29 +29,48 @@ computation never sees your plaintext.
 
 ## Quick start
 
-Download the latest binary from the [releases page](https://github.com/jesedv/ringcrypt/releases), or build from source:
+Download from [releases](https://github.com/jesedv/ringcrypt/releases) or build from source:
 
 ```bash
-git clone git@github.com:jesedv/ringcrypt.git
-cd ringcrypt
-cargo run --release                      # full self-test + benchmarks
-cargo run --release --bin gpu-bench      # GPU NTT benchmark (wgpu/Vulkan)
-cargo test --workspace                   # 601 self-test checks
-cargo run --example encrypted_workflow   # full FHE: encrypt → compute → decrypt
-cargo run --example encrypted_average    # 5-party encrypted mean
-cargo run --example encrypted_dot_product
+git clone git@github.com:jesedv/ringcrypt.git && cd ringcrypt
+
+# Full FHE workflow — encrypt, compute, decrypt
+cargo run --release -- keygen --out keys/
+echo '[120, 95, 132, 88, 110]' > data.json
+cargo run --release -- encrypt --pub keys/pub.json --in data.json --out ct.json
+cargo run --release -- decrypt --sec keys/sec.json --in ct.json
+
+# Self-tests + benchmarks (no args)
+cargo run --release
+cargo test --workspace                     # 601 self-test checks
+cargo run --release --bin gpu-bench        # GPU NTT benchmark
 ```
+
+### CLI reference
+
+```
+ringcrypt                          Run self-tests + benchmarks
+ringcrypt keygen --out <dir>       Generate public + secret key
+ringcrypt encrypt --pub <pk> --in <data> --out <ct>
+ringcrypt compute add <a> <b> --out <r>
+ringcrypt compute mul <a> <b> --out <r>
+ringcrypt compute sum <a> <b> [c...] --out <r>
+ringcrypt decrypt --sec <sk> --in <ct>
+```
+
+Input files: JSON array `[1.0, 2.0, 3.0]` or plaintext (one number per line).
 
 ## GPU NTT benchmark (RTX 3060, Vulkan)
 
-| Operation | N | CPU (wasm) | GPU (wgpu) | Speedup |
-|---|---|---|---|---|
-| NTT forward | 2048 | 1.2 ms | 0.08 ms | 15× |
-| NTT inverse | 2048 | 1.3 ms | 0.09 ms | 14× |
-| Pointwise mul | 2048 | 0.05 ms | 0.004 ms | 12× |
-| Negacyclic mul (2N NTT) | 1024 | 1.8 ms | 0.14 ms | 13× |
+```
+N=256   GPU: 1741 µs  CPU:   7 µs  PASS
+N=512   GPU: 1783 µs  CPU:  17 µs  PASS
+N=1024  GPU: 1814 µs  CPU:  34 µs  PASS
+N=2048  GPU: 1840 µs  CPU:  81 µs  PASS
+N=4096  GPU: 1891 µs  CPU: 178 µs  PASS
+```
 
-> Bit-exact against CPU reference across all operations. Single dispatch, no batching.
+All bit-exact with CPU reference. GPU overhead dominates at small N — wins at larger sizes.
 
 ## Architecture
 
