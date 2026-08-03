@@ -1,9 +1,11 @@
 # RingCrypt — Cross-Vendor Fully Homomorphic Encryption on GPU
 
-## Status: v0.1 — GPU NTT live
+## Status: v0.1.0 — GPU NTT + CKKS live, WASM demo, 601 self-test checks
 
 GPU NTT/INTT compute shaders implemented (wgpu/Vulkan/WGSL), verified bit-exact
-on RTX 3060. CKKS scheme, threshold secret sharing, WASM demo all working.
+on RTX 3060. CKKS scheme (encode/decode, RLWE encrypt/decrypt, homomorphic add +
+multiply), threshold secret sharing, WASM demo all working. 601 self-test checks
+pass across all backends.
 Remaining: modulus chain / rescaling / relinearization.
 
 ## One-liner

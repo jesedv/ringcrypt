@@ -1,11 +1,12 @@
 # RingCrypt — Compute on Encrypted Data Without Decrypting
 
-**Free, open-source, browser-native fully homomorphic encryption.**
+**Free, open-source, browser-native fully homomorphic encryption by [jesed](https://jesed.dev/).**
 
 [![CI](https://github.com/jesedv/ringcrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/jesedv/ringcrypt/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 ![unsafe: forbidden](https://img.shields.io/badge/unsafe-forbidden-brightgreen.svg)
 [![Live demo](https://img.shields.io/badge/demo-live-5b8cff)](https://ringcrypt.jesed.dev)
+[![Release](https://img.shields.io/badge/release-v0.1.0-5b8cff)](https://github.com/jesedv/ringcrypt/releases/tag/v0.1.0)
 
 > ⚠️ **Pre-audit (v0.1).** Verified math, pending third-party audit before v1.0.
 
@@ -28,12 +29,14 @@ computation never sees your plaintext.
 
 ## Quick start
 
+Download the latest binary from the [releases page](https://github.com/jesedv/ringcrypt/releases), or build from source:
+
 ```bash
 git clone git@github.com:jesedv/ringcrypt.git
 cd ringcrypt
 cargo run --release                      # full self-test + benchmarks
 cargo run --release --bin gpu-bench      # GPU NTT benchmark (wgpu/Vulkan)
-cargo test --workspace                   # 21 tests
+cargo test --workspace                   # 601 self-test checks
 cargo run --example encrypted_average    # 5-party encrypted mean
 cargo run --example encrypted_dot_product
 ```

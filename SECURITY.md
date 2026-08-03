@@ -12,7 +12,7 @@ third-party cryptographic audit.
 
 This project touches cryptography. Please report security issues privately:
 
-- Open a [private advisory](https://github.com/ringcrypt/ringcrypt/security/advisories/new)
+- Open a [private advisory](https://github.com/jesedv/ringcrypt/security/advisories/new)
 - or email the maintainers (see repo About)
 
 We aim to acknowledge reports within 48 hours and to respond publicly once a

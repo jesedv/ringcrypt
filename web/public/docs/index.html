@@ -224,6 +224,29 @@ dec:   c₀ + c₁·sk + c₂·sk² ≈ m₁·m₂           (product decryption
       next milestone and reuses the exact same NTT core.
     </p>
 
+    <h2 id="tutorials">10. Tutorials</h2>
+    <h3>Encrypted average</h3>
+    <p>
+      Five parties compute the mean of their values without revealing any individual value.
+      Each party splits its value into additive shares; shares are summed and the mean is
+      reconstructed from the total.
+    </p>
+    <pre><code>cargo run --example encrypted_average</code></pre>
+
+    <h3>Encrypted dot product</h3>
+    <p>
+      Two vectors are encrypted under RLWE and their dot product is computed homomorphically.
+      The result decrypts to the inner product without exposing the input vectors.
+    </p>
+    <pre><code>cargo run --example encrypted_dot_product</code></pre>
+
+    <h3>GPU benchmark</h3>
+    <p>
+      Run the NTT/INTT compute shaders on any GPU (Vulkan, Metal, DX12, WebGPU) via wgpu.
+      Measures throughput against the CPU reference — verified bit-exact on RTX 3060.
+    </p>
+    <pre><code>cargo run --release --bin gpu-bench</code></pre>
+
     <a class="backlink" href="/">← Back to RingCrypt</a>
   </main>
 </body>

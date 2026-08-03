@@ -205,7 +205,7 @@
     <div class="demo-grid">
       <div class="card demo">
         <h3>1. NTT Engine Self-Test</h3>
-        <p>Verifies NTT∘INTT roundtrip, cyclic convolution vs schoolbook, and Barrett modmul exactness — 527 checks, live.</p>
+         <p>Verifies NTT∘INTT roundtrip, cyclic convolution vs schoolbook, and Barrett modmul exactness — 601 self-test checks, live.</p>
         <button class="btn btn-primary" onclick={runSelfTest} disabled={selftestBusy}>
           {selftestBusy ? 'Running…' : 'Run NTT Self-Test'}
         </button>
@@ -357,7 +357,7 @@
       <span>Pre-audit — not for production secrets until v1.0</span>
     </div>
   </div>
-  <p class="legal">&copy; 2026 RingCrypt contributors. MIT License.</p>
+  <p class="legal">&copy; 2026 RingCrypt contributors. MIT License. <a href="https://jesed.dev/" style="color:var(--muted);text-decoration:none;">by jesed</a></p>
 </footer>
 
 <style>
