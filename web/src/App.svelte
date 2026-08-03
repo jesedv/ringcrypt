@@ -13,7 +13,7 @@
 
   const REPO = 'https://github.com/jesedv/ringcrypt';
   const DOMAIN = 'https://ringcrypt.jesed.dev';
-  const DOCS = '/docs/';
+  const DOCS = '/docs/index.html';
 
   onMount(async () => {
     try { engine = await loadWasm(); } catch (e) { engine = null; }
