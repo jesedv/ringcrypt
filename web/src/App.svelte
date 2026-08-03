@@ -13,7 +13,7 @@
 
   const REPO = 'https://github.com/jesedv/ringcrypt';
   const DOMAIN = 'https://ringcrypt.jesed.dev';
-  const DOCS = `${REPO}/blob/main/docs/math.md`;
+  const DOCS = '/docs/';
 
   onMount(async () => {
     try { engine = await loadWasm(); } catch (e) { engine = null; }
@@ -63,7 +63,7 @@
     <a href="#advantages">Advantages</a>
     <a href="#how">How It Works</a>
     <a href="#demo">Live Demo</a>
-    <a href="#docs">Docs</a>
+    <a href={DOCS}>Docs</a>
     <a href="#faq">FAQ</a>
   </nav>
   <a class="btn btn-ghost" href={REPO} target="_blank" rel="noopener">
