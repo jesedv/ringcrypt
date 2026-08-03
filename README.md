@@ -37,6 +37,7 @@ cd ringcrypt
 cargo run --release                      # full self-test + benchmarks
 cargo run --release --bin gpu-bench      # GPU NTT benchmark (wgpu/Vulkan)
 cargo test --workspace                   # 601 self-test checks
+cargo run --example encrypted_workflow   # full FHE: encrypt → compute → decrypt
 cargo run --example encrypted_average    # 5-party encrypted mean
 cargo run --example encrypted_dot_product
 ```
@@ -66,7 +67,7 @@ ringcrypt/
 │   ├── ringcrypt-scheme/   # CKKS: canonical embedding, encrypt/decrypt, homomorphic ops
 │   ├── ringcrypt-ss/       # Threshold secret sharing (p = 2^31 − 1)
 │   └── ringcrypt-wasm/     # wasm-bindgen bridge
-├── examples/               # encrypted average, dot product
+├── examples/               # encrypted workflow, average, dot product
 ├── web/                    # Svelte static site + live WASM demo
 ├── scripts/                # build, test, bench
 └── docs/                   # Math exposition, publishing guide

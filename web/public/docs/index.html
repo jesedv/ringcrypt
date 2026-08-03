@@ -225,6 +225,14 @@ dec:   c₀ + c₁·sk + c₂·sk² ≈ m₁·m₂           (product decryption
     </p>
 
     <h2 id="tutorials">10. Tutorials</h2>
+    <h3>Encrypted workflow</h3>
+    <p>
+      The complete FHE pipeline with separated roles: Alice generates keys,
+      Bob/Carol/Dave encrypt data, the cloud computes on ciphertext, and Alice
+      decrypts only the final result. No party sees any other's plaintext.
+    </p>
+    <pre><code>cargo run --example encrypted_workflow</code></pre>
+
     <h3>Encrypted average</h3>
     <p>
       Five parties compute the mean of their values without revealing any individual value.
