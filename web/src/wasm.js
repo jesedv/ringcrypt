@@ -14,12 +14,14 @@ let instancePromise = null;
  */
 export function loadWasm() {
   if (!instancePromise) {
-    // baseURI ends with the directory of the current page.
     let base = document.baseURI;
     if (!base.endsWith('/')) base = new URL('./', base).href;
     const url = new URL('pkg/ringcrypt_wasm.js', base).href;
-      instancePromise = import(/* @vite-ignore */ url).catch((e) => {
-      instancePromise = null; // allow retry on transient failure
+    instancePromise = import(/* @vite-ignore */ url).then(async (mod) => {
+      await mod.default();
+      return mod;
+    }).catch((e) => {
+      instancePromise = null;
       throw e;
     });
   }
