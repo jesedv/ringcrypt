@@ -4,6 +4,7 @@ members = [
     "crates/ringcrypt-ntt",
     "crates/ringcrypt-ss",
     "crates/ringcrypt-scheme",
+    "crates/ringcrypt-runtime",
     "crates/ringcrypt-wasm",
     ".",
 ]
@@ -49,6 +50,7 @@ default-run = "ringcrypt"
 ringcrypt-ntt.workspace = true
 ringcrypt-ss.workspace = true
 ringcrypt-scheme.workspace = true
+ringcrypt-runtime = { path = "crates/ringcrypt-runtime" }
 paste.workspace = true
 rand.workspace = true
 rand_pcg.workspace = true
@@ -58,6 +60,10 @@ serde_json = "1"
 [[bin]]
 name = "ringcrypt"
 path = "src/main.rs"
+
+[[bin]]
+name = "gpu-bench"
+path = "src/gpu_bench.rs"
 
 [profile.release]
 lto = true
