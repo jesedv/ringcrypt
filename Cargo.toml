@@ -1,0 +1,69 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/ringcrypt-ntt",
+    "crates/ringcrypt-ss",
+    "crates/ringcrypt-scheme",
+    "crates/ringcrypt-wasm",
+    ".",
+]
+default-members = ["."]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+authors = ["ringcrypt contributors"]
+readme = "README.md"
+repository = "https://github.com/ringcrypt/ringcrypt"
+homepage = "https://ringcrypt.jesed.dev/"
+description = "Cross-vendor fully homomorphic encryption on GPU (NTT + NTT/INTT core, RLWE negacyclic multiply, threshold secret-sharing)."
+
+[workspace.dependencies]
+ringcrypt-ntt = { path = "crates/ringcrypt-ntt" }
+ringcrypt-ss = { path = "crates/ringcrypt-ss" }
+ringcrypt-scheme = { path = "crates/ringcrypt-scheme" }
+num-complex = "0.4"
+serde = { version = "1", features = ["derive"] }
+rand = "0.8"
+rand_pcg = "0.3"
+paste = "1"
+wasm-bindgen = "0.2"
+js-sys = "0.3"
+web-sys = "0.3"
+console_error_panic_hook = "0.1"
+serde-wasm-bindgen = "0.6"
+getrandom = { version = "0.2", features = ["js"] }
+serde_json = "1"
+
+[package]
+name = "ringcrypt"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description.workspace = true
+readme = "README.md"
+default-run = "ringcrypt"
+
+[dependencies]
+ringcrypt-ntt.workspace = true
+ringcrypt-ss.workspace = true
+ringcrypt-scheme.workspace = true
+paste.workspace = true
+rand.workspace = true
+rand_pcg.workspace = true
+serde.workspace = true
+serde_json = "1"
+
+[[bin]]
+name = "ringcrypt"
+path = "src/main.rs"
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = 3
+
+[profile.bench]
+lto = true
+codegen-units = 1

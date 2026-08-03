@@ -1,0 +1,18 @@
+[package]
+name = "ringcrypt-ntt"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description.workspace = true
+repository.workspace = true
+readme.workspace = true
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+paste.workspace = true
+
+# No unsafe anywhere in the core: crypto-grade, formally auditable.
+[features]
+default = []

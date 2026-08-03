@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ringcrypt.jesed.dev/sitemap.xml

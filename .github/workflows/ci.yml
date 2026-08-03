@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  RUST_BACKTRACE: 1
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust (wasm target)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Lint
+        run: cargo fmt --check && cargo clippy --workspace -- -D warnings
+
+      - name: Test (native)
+        run: cargo test --workspace
+
+      - name: Build WASM
+        run: wasm-pack build crates/ringcrypt-wasm --target web --out-dir ../web/public/pkg
+
+      - name: Build site
+        working-directory: web
+        run: |
+          npm ci || npm install
+          npm run build

@@ -1,0 +1,21 @@
+[package]
+name = "ringcrypt-scheme"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "CKKS fully homomorphic encryption scheme layer"
+repository.workspace = true
+readme.workspace = true
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+ringcrypt-ntt.workspace = true
+num-complex = "0.4"
+rand.workspace = true
+rand_pcg.workspace = true
+serde.workspace = true
+
+[features]
+default = []

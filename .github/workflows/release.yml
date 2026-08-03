@@ -1,0 +1,84 @@
+name: Release binaries + WASM
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+            name: ringcrypt-x86_64-linux
+          - os: macos-latest
+            target: x86_64-apple-darwin
+            name: ringcrypt-x86_64-macos
+          - os: macos-latest
+            target: aarch64-apple-darwin
+            name: ringcrypt-aarch64-macos
+          - os: windows-latest
+            target: x86_64-pc-windows-msvc
+            name: ringcrypt-x86_64-windows.exe
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust target
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+      - name: Build binary
+        run: cargo build --release --target ${{ matrix.target }}
+      - name: Package
+        shell: bash
+        run: |
+          BIN=target/${{ matrix.target }}/release/ringcrypt
+          if [ "${{ matrix.os }}" = "windows-latest" ]; then BIN="$BIN.exe"; fi
+          mkdir -p pkg_out
+          cp "$BIN" "pkg_out/${{ matrix.name }}"
+          cp LICENSE pkg_out/LICENSE
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}
+          path: pkg_out/*
+
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust (wasm target)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+      - name: Build WASM bundle
+        run: wasm-pack build crates/ringcrypt-wasm --target web --out-dir ../pkg
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ringcrypt-wasm
+          path: pkg/*
+          if-no-files-found: error
+
+  publish:
+    needs: [build, wasm]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+      - name: Create draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          draft: true
+          files: artifacts/**/*

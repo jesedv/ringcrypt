@@ -1,0 +1,20 @@
+{
+  "name": "ringcrypt-wasm",
+  "description": "Cross-vendor fully homomorphic encryption on GPU (NTT + NTT/INTT core, RLWE negacyclic multiply, threshold secret-sharing).",
+  "version": "0.1.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ringcrypt/ringcrypt"
+  },
+  "files": [
+    "ringcrypt_wasm_bg.wasm",
+    "ringcrypt_wasm.js",
+    "ringcrypt_wasm.d.ts"
+  ],
+  "module": "ringcrypt_wasm.js",
+  "types": "ringcrypt_wasm.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
