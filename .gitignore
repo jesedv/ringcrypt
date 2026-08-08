@@ -2,6 +2,9 @@
 /target
 **/*.rs.bk
 
+# Cloudflare
+.wrangler/
+
 # Web build artifacts (WASM pkg is tracked for Cloudflare Pages deploys)
 web/node_modules
 web/dist
